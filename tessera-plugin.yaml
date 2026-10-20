@@ -1,0 +1,63 @@
+# Tank levels for a camper: fresh, grey and black water as a tank, gas as a bottle, diesel as a canister, each with its
+# percentage and its content. The screen reads up to four level sensors (and their content) of Home Assistant itself,
+# chosen in the plugin's details; each tile shows the tanks it is given, one per cell. No internet service of its own.
+# Every field is explained in docs/MANIFEST.md of tessera-plugins.
+id: camper_tanks
+version: 0.1.0
+# 0.12: a choice option that keeps several values (the tanks of a tile); 0.9: Tone::GOOD, ui::set_fill, Font::DIGITS.
+api: "0.12"
+icon: storage-tank
+maintainer: hflocki
+license: MIT
+stage: beta
+topics: [travel, home]
+requires:
+  esphome: 2026.6.2
+boards: any
+flash_kb: 14
+
+permissions:
+  # The level sensors and their content, read by the screen itself (homeassistant sensors of plugin.yaml).
+  read_entities: ["{tank1}", "{tank2}", "{tank3}", "{tank4}",
+                  "{tank1_amount}", "{tank2_amount}", "{tank3_amount}", "{tank4_amount}"]
+
+inputs:
+  - { id: tank1, kind: entity, domains: [sensor], scope: screen, label: input_tank1, hint: input_tank_hint }
+  - { id: tank1_amount, kind: entity, domains: [sensor], scope: screen, label: input_tank1_amount, hint: input_amount_hint }
+  - { id: tank2, kind: entity, domains: [sensor], scope: screen, label: input_tank2 }
+  - { id: tank2_amount, kind: entity, domains: [sensor], scope: screen, label: input_tank2_amount }
+  - { id: tank3, kind: entity, domains: [sensor], scope: screen, label: input_tank3 }
+  - { id: tank3_amount, kind: entity, domains: [sensor], scope: screen, label: input_tank3_amount }
+  - { id: tank4, kind: entity, domains: [sensor], scope: screen, label: input_tank4 }
+  - { id: tank4_amount, kind: entity, domains: [sensor], scope: screen, label: input_tank4_amount }
+
+tiles:
+  - id: tanks
+    name: tile_name
+    icon: storage-tank
+    sizes: { min: 1x1, max: 4x2 }
+    # Up to four tanks of a shell, a fill, two marks and three labels each, plus a note.
+    memory: 4200
+    example: tile_example
+    options:
+      - id: tanks
+        kind: choice
+        multiple: 4
+        label: tanks
+        hint: tanks_hint
+        choices: [{ value: "1", label: tank_1 }, { value: "2", label: tank_2 },
+                  { value: "3", label: tank_3 }, { value: "4", label: tank_4 }]
+      - { id: amount, kind: toggle, default: true, label: amount, hint: amount_hint }
+      - { id: low, kind: number, min: 0, max: 50, step: 5, default: 15, unit: "%", label: low, hint: low_hint }
+      - { id: high, kind: number, min: 50, max: 100, step: 5, default: 85, unit: "%", label: high, hint: high_hint }
+
+# Kind and name of each tank, kept on the screen (plugin.yaml), changed here or on the screen's settings page.
+settings:
+  - { key: tank_1_type, label: setting_type_1, hint: setting_type_hint }
+  - { key: tank_1_name, label: setting_name_1, hint: setting_name_hint }
+  - { key: tank_2_type, label: setting_type_2 }
+  - { key: tank_2_name, label: setting_name_2 }
+  - { key: tank_3_type, label: setting_type_3 }
+  - { key: tank_3_name, label: setting_name_3 }
+  - { key: tank_4_type, label: setting_type_4 }
+  - { key: tank_4_name, label: setting_name_4 }

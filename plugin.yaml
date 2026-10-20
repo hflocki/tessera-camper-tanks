@@ -1,0 +1,136 @@
+# What a screen gets when it takes this plugin. Tessera includes this file from the screen's <name>.plugins.yaml with
+# TANK1 ... TANK4_AMOUNT filled in (the sensors chosen in the plugin's details), and adds the components folder beside it.
+# A tank whose sensor is left at its default reads nothing and shows a note on its tile.
+defaults:
+  TANK1: sensor.tank_1_level
+  TANK1_AMOUNT: sensor.tank_1_content
+  TANK2: sensor.tank_2_level
+  TANK2_AMOUNT: sensor.tank_2_content
+  TANK3: sensor.tank_3_level
+  TANK3_AMOUNT: sensor.tank_3_content
+  TANK4: sensor.tank_4_level
+  TANK4_AMOUNT: sensor.tank_4_content
+
+# The level (%) and content (l or kg) of each tank, read straight from Home Assistant, and its name there.
+sensor:
+  - { platform: homeassistant, id: camper_tanks_level_1, entity_id: "${TANK1}", internal: true }
+  - { platform: homeassistant, id: camper_tanks_amount_1, entity_id: "${TANK1_AMOUNT}", internal: true }
+  - { platform: homeassistant, id: camper_tanks_level_2, entity_id: "${TANK2}", internal: true }
+  - { platform: homeassistant, id: camper_tanks_amount_2, entity_id: "${TANK2_AMOUNT}", internal: true }
+  - { platform: homeassistant, id: camper_tanks_level_3, entity_id: "${TANK3}", internal: true }
+  - { platform: homeassistant, id: camper_tanks_amount_3, entity_id: "${TANK3_AMOUNT}", internal: true }
+  - { platform: homeassistant, id: camper_tanks_level_4, entity_id: "${TANK4}", internal: true }
+  - { platform: homeassistant, id: camper_tanks_amount_4, entity_id: "${TANK4_AMOUNT}", internal: true }
+text_sensor:
+  - { platform: homeassistant, id: camper_tanks_ha_name_1, entity_id: "${TANK1}", attribute: friendly_name, internal: true }
+  - { platform: homeassistant, id: camper_tanks_ha_name_2, entity_id: "${TANK2}", attribute: friendly_name, internal: true }
+  - { platform: homeassistant, id: camper_tanks_ha_name_3, entity_id: "${TANK3}", attribute: friendly_name, internal: true }
+  - { platform: homeassistant, id: camper_tanks_ha_name_4, entity_id: "${TANK4}", attribute: friendly_name, internal: true }
+
+# What kind of tank each one is (how it is drawn and when it warns), and a name of your own (empty: its name in
+# Home Assistant). Settings of the plugin: in its details on the screen's Plugins tab and on the screen's settings page.
+select:
+  - platform: template
+    id: camper_tanks_type_1
+    name: "Tank 1 type"
+    icon: mdi:storage-tank
+    optimistic: true
+    options: ["Fresh water", "Grey water", "Black water", "Gas", "Diesel"]
+    initial_option: "Fresh water"
+    restore_value: true
+    entity_category: config
+  - platform: template
+    id: camper_tanks_type_2
+    name: "Tank 2 type"
+    icon: mdi:storage-tank
+    optimistic: true
+    options: ["Fresh water", "Grey water", "Black water", "Gas", "Diesel"]
+    initial_option: "Gas"
+    restore_value: true
+    entity_category: config
+  - platform: template
+    id: camper_tanks_type_3
+    name: "Tank 3 type"
+    icon: mdi:storage-tank
+    optimistic: true
+    options: ["Fresh water", "Grey water", "Black water", "Gas", "Diesel"]
+    initial_option: "Grey water"
+    restore_value: true
+    entity_category: config
+  - platform: template
+    id: camper_tanks_type_4
+    name: "Tank 4 type"
+    icon: mdi:storage-tank
+    optimistic: true
+    options: ["Fresh water", "Grey water", "Black water", "Gas", "Diesel"]
+    initial_option: "Black water"
+    restore_value: true
+    entity_category: config
+text:
+  - platform: template
+    id: camper_tanks_name_1
+    name: "Tank 1 name"
+    icon: mdi:form-textbox
+    optimistic: true
+    mode: text
+    min_length: 0
+    max_length: 24
+    initial_value: ""
+    restore_value: true
+    entity_category: config
+  - platform: template
+    id: camper_tanks_name_2
+    name: "Tank 2 name"
+    icon: mdi:form-textbox
+    optimistic: true
+    mode: text
+    min_length: 0
+    max_length: 24
+    initial_value: ""
+    restore_value: true
+    entity_category: config
+  - platform: template
+    id: camper_tanks_name_3
+    name: "Tank 3 name"
+    icon: mdi:form-textbox
+    optimistic: true
+    mode: text
+    min_length: 0
+    max_length: 24
+    initial_value: ""
+    restore_value: true
+    entity_category: config
+  - platform: template
+    id: camper_tanks_name_4
+    name: "Tank 4 name"
+    icon: mdi:form-textbox
+    optimistic: true
+    mode: text
+    min_length: 0
+    max_length: 24
+    initial_value: ""
+    restore_value: true
+    entity_category: config
+
+camper_tanks:
+  tanks:
+    - level: camper_tanks_level_1
+      amount: camper_tanks_amount_1
+      ha_name: camper_tanks_ha_name_1
+      type: camper_tanks_type_1
+      name: camper_tanks_name_1
+    - level: camper_tanks_level_2
+      amount: camper_tanks_amount_2
+      ha_name: camper_tanks_ha_name_2
+      type: camper_tanks_type_2
+      name: camper_tanks_name_2
+    - level: camper_tanks_level_3
+      amount: camper_tanks_amount_3
+      ha_name: camper_tanks_ha_name_3
+      type: camper_tanks_type_3
+      name: camper_tanks_name_3
+    - level: camper_tanks_level_4
+      amount: camper_tanks_amount_4
+      ha_name: camper_tanks_ha_name_4
+      type: camper_tanks_type_4
+      name: camper_tanks_name_4

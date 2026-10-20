@@ -1,0 +1,18 @@
+# What tools/preview.py shows (docs/PREVIEW.md): four tanks as Home Assistant has them, the homeassistant sensors of
+# plugin.yaml at their defaults.
+tiles:
+  - tile: tanks
+    name: Tanks
+    sizes: [1x1, 2x1, 1x2, 2x2, 4x1]
+  - tile: tanks
+    name: Water and gas
+    options: { tanks: [{ value: "1", label: Tank 1 }, { value: "2", label: Tank 2 }] }
+    sizes: [2x1, 1x2]
+
+states:
+  sensor.tank_1_level: { state: "76", attributes: { friendly_name: Fresh water } }
+  sensor.tank_1_content: { state: "76", attributes: { friendly_name: Fresh water content } }
+  sensor.tank_2_level: { state: "12", attributes: { friendly_name: Gas bottle } }
+  sensor.tank_2_content: { state: "1.3", attributes: { friendly_name: Gas content } }
+  sensor.tank_3_level: { state: "45", attributes: { friendly_name: Grey water } }
+  sensor.tank_4_level: { state: "90", attributes: { friendly_name: Black water } }
